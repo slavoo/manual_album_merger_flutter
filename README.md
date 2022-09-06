@@ -1,16 +1,3 @@
 # manual_album_merger_flutter
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Flutter app that allows you to easily merge two identically structured folders of images into a third folder. You just select two folders to compare and one output folder and then visually go through all the images and decide whether you'd like to take the left or the right.
