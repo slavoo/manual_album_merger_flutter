@@ -51,8 +51,8 @@ class MyHomePage extends StatelessWidget {
           error: (s) => Text(s.message),
           loading: (s) => const CircularProgressIndicator(),
           ready: (s) => ImageComparer(
-            imageA: s.a[s.currentIdx],
-            imageB: s.b[s.currentIdx],
+            imageA: s.aFiles[s.outFiles.length],
+            imageB: s.bFiles[s.outFiles.length],
             onSelected: (selected) {
               context.read<DirectoryMergerBloc>().add(MergeDirectory(selected == ImageSelected.a));
             },

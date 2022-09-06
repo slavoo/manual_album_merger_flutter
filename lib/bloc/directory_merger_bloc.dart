@@ -1,13 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:path/path.dart';
 import 'dart:io';
 import 'directory_merger_event.dart';
 import 'directory_merger_state.dart';
 
-/// 1. Scans all files from a,b and c directory, where a and b are meant to be twins and c is the output
-/// 2. d = zip(a, b)
-/// 3. currentIdx = d.idxWhere(d=> d not in c)
-/// 4. the returned state will contain d and currentIdx
-/// 5. every time we select an item, we publish event
 class DirectoryMergerBloc
     extends Bloc<DirectoryMergerEvent, DirectoryMergerState> {
   DirectoryMergerBloc() : super(const DirectoryMergerState.init()) {
@@ -34,21 +30,12 @@ class DirectoryMergerBloc
 
         final filesA = await scanAllFiles(dirA);
         final filesB = await scanAllFiles(dirB);
-
-        final abzip = Iterable.generate(filesA.length)
-            .map((i) => [
-                  filesA[i].substring(dirA.path.length),
-                  filesB[i].substring(dirB.path.length)
-                ])
-            .toList();
-
-        if (abzip.any((ab) => ab[0] != ab[1])) {
-          throw Exception("Unequal collections are not yet supported");
-        }
         final filesOut = await scanAllFiles(dirOut);
-        final currentIdx = filesOut.length;
+
+        validateInputs(filesA, dirA, filesB, dirB, filesOut, dirOut);
+
         emit(DirectoryMergerState.ready(
-            filesA, filesB, dirOut.path, currentIdx));
+            filesA, dirA.path, filesB, dirB.path, filesOut, dirOut.path));
       } catch (e) {
         emit(DirectoryMergerState.error(e.toString()));
       }
@@ -58,12 +45,43 @@ class DirectoryMergerBloc
       state.maybeMap(
           ready: (s) {
             // copy file
-            final toCopy = event.chooseA ? s.a : s.b;
+            final sourcePath =
+                (event.chooseA ? s.aFiles : s.bFiles)[s.outFiles.length];
+            final outFile = event.chooseA
+                ? s.aFiles[s.outFiles.length].substring(s.aDir.length + 1)
+                : s.bFiles[s.outFiles.length].substring(s.bDir.length + 1);
 
-            emit(s.copyWith(currentIdx: s.currentIdx + 1));
+            final destPath = join(s.outDir, outFile);
+
+            copy(sourcePath, destPath);
+
+            emit(s.copyWith(outFiles: [...s.outFiles, destPath]));
           },
           orElse: () {});
     });
+  }
+
+  void validateInputs(List<String> filesA, Directory dirA, List<String> filesB,
+      Directory dirB, List<String> filesOut, Directory dirOut) {
+    final abzip = Iterable.generate(filesA.length)
+        .map((i) => [
+              filesA[i].substring(dirA.path.length),
+              filesB[i].substring(dirB.path.length),
+              filesOut.length > i
+                  ? filesOut[i].substring(dirOut.path.length)
+                  : null
+            ])
+        .toList();
+
+    if (abzip.any((ab) => ab[0] != ab[1])) {
+      throw Exception("Unequal collections are not yet supported");
+    }
+
+    if (Iterable.generate(filesOut.length)
+        .any((i) => abzip[i][0] != abzip[i][2])) {
+      throw Exception(
+          "Some output files don't seem to be in the collection or otherwise ...");
+    }
   }
 
   List<List<String>> fullOuterJoin(List<String> filesA, List<String> filesB) {
@@ -82,5 +100,10 @@ class DirectoryMergerBloc
         .where((e) => e is File && e.path.endsWith(".tiff"))
         .map((e) => e.path)
         .toList();
+  }
+
+  void copy(String sourcePath, String destPath) {
+    File(destPath).parent.createSync(recursive: true);
+    File(sourcePath).copySync(destPath);
   }
 }

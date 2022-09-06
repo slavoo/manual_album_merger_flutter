@@ -22,7 +22,12 @@ mixin _$DirectoryMergerState {
     required TResult Function() loading,
     required TResult Function(String message) error,
     required TResult Function(
-            List<String> a, List<String> b, String outDir, int currentIdx)
+            List<String> aFiles,
+            String aDir,
+            List<String> bFiles,
+            String bDir,
+            List<String> outFiles,
+            String outDir)
         ready,
   }) =>
       throw _privateConstructorUsedError;
@@ -31,8 +36,8 @@ mixin _$DirectoryMergerState {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<String> a, List<String> b, String outDir, int currentIdx)?
+    TResult Function(List<String> aFiles, String aDir, List<String> bFiles,
+            String bDir, List<String> outFiles, String outDir)?
         ready,
   }) =>
       throw _privateConstructorUsedError;
@@ -41,8 +46,8 @@ mixin _$DirectoryMergerState {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<String> a, List<String> b, String outDir, int currentIdx)?
+    TResult Function(List<String> aFiles, String aDir, List<String> bFiles,
+            String bDir, List<String> outFiles, String outDir)?
         ready,
     required TResult orElse(),
   }) =>
@@ -134,7 +139,12 @@ class _$Init implements Init {
     required TResult Function() loading,
     required TResult Function(String message) error,
     required TResult Function(
-            List<String> a, List<String> b, String outDir, int currentIdx)
+            List<String> aFiles,
+            String aDir,
+            List<String> bFiles,
+            String bDir,
+            List<String> outFiles,
+            String outDir)
         ready,
   }) {
     return init();
@@ -146,8 +156,8 @@ class _$Init implements Init {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<String> a, List<String> b, String outDir, int currentIdx)?
+    TResult Function(List<String> aFiles, String aDir, List<String> bFiles,
+            String bDir, List<String> outFiles, String outDir)?
         ready,
   }) {
     return init?.call();
@@ -159,8 +169,8 @@ class _$Init implements Init {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<String> a, List<String> b, String outDir, int currentIdx)?
+    TResult Function(List<String> aFiles, String aDir, List<String> bFiles,
+            String bDir, List<String> outFiles, String outDir)?
         ready,
     required TResult orElse(),
   }) {
@@ -255,7 +265,12 @@ class _$Loading implements Loading {
     required TResult Function() loading,
     required TResult Function(String message) error,
     required TResult Function(
-            List<String> a, List<String> b, String outDir, int currentIdx)
+            List<String> aFiles,
+            String aDir,
+            List<String> bFiles,
+            String bDir,
+            List<String> outFiles,
+            String outDir)
         ready,
   }) {
     return loading();
@@ -267,8 +282,8 @@ class _$Loading implements Loading {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<String> a, List<String> b, String outDir, int currentIdx)?
+    TResult Function(List<String> aFiles, String aDir, List<String> bFiles,
+            String bDir, List<String> outFiles, String outDir)?
         ready,
   }) {
     return loading?.call();
@@ -280,8 +295,8 @@ class _$Loading implements Loading {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<String> a, List<String> b, String outDir, int currentIdx)?
+    TResult Function(List<String> aFiles, String aDir, List<String> bFiles,
+            String bDir, List<String> outFiles, String outDir)?
         ready,
     required TResult orElse(),
   }) {
@@ -400,7 +415,12 @@ class _$Error implements Error {
     required TResult Function() loading,
     required TResult Function(String message) error,
     required TResult Function(
-            List<String> a, List<String> b, String outDir, int currentIdx)
+            List<String> aFiles,
+            String aDir,
+            List<String> bFiles,
+            String bDir,
+            List<String> outFiles,
+            String outDir)
         ready,
   }) {
     return error(message);
@@ -412,8 +432,8 @@ class _$Error implements Error {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<String> a, List<String> b, String outDir, int currentIdx)?
+    TResult Function(List<String> aFiles, String aDir, List<String> bFiles,
+            String bDir, List<String> outFiles, String outDir)?
         ready,
   }) {
     return error?.call(message);
@@ -425,8 +445,8 @@ class _$Error implements Error {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<String> a, List<String> b, String outDir, int currentIdx)?
+    TResult Function(List<String> aFiles, String aDir, List<String> bFiles,
+            String bDir, List<String> outFiles, String outDir)?
         ready,
     required TResult orElse(),
   }) {
@@ -486,7 +506,13 @@ abstract class Error implements DirectoryMergerState {
 abstract class _$$ReadyCopyWith<$Res> {
   factory _$$ReadyCopyWith(_$Ready value, $Res Function(_$Ready) then) =
       __$$ReadyCopyWithImpl<$Res>;
-  $Res call({List<String> a, List<String> b, String outDir, int currentIdx});
+  $Res call(
+      {List<String> aFiles,
+      String aDir,
+      List<String> bFiles,
+      String bDir,
+      List<String> outFiles,
+      String outDir});
 }
 
 /// @nodoc
@@ -501,28 +527,38 @@ class __$$ReadyCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? a = freezed,
-    Object? b = freezed,
+    Object? aFiles = freezed,
+    Object? aDir = freezed,
+    Object? bFiles = freezed,
+    Object? bDir = freezed,
+    Object? outFiles = freezed,
     Object? outDir = freezed,
-    Object? currentIdx = freezed,
   }) {
     return _then(_$Ready(
-      a == freezed
-          ? _value._a
-          : a // ignore: cast_nullable_to_non_nullable
+      aFiles == freezed
+          ? _value._aFiles
+          : aFiles // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      b == freezed
-          ? _value._b
-          : b // ignore: cast_nullable_to_non_nullable
+      aDir == freezed
+          ? _value.aDir
+          : aDir // ignore: cast_nullable_to_non_nullable
+              as String,
+      bFiles == freezed
+          ? _value._bFiles
+          : bFiles // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      bDir == freezed
+          ? _value.bDir
+          : bDir // ignore: cast_nullable_to_non_nullable
+              as String,
+      outFiles == freezed
+          ? _value._outFiles
+          : outFiles // ignore: cast_nullable_to_non_nullable
               as List<String>,
       outDir == freezed
           ? _value.outDir
           : outDir // ignore: cast_nullable_to_non_nullable
               as String,
-      currentIdx == freezed
-          ? _value.currentIdx
-          : currentIdx // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -530,33 +566,43 @@ class __$$ReadyCopyWithImpl<$Res>
 /// @nodoc
 
 class _$Ready implements Ready {
-  const _$Ready(
-      final List<String> a, final List<String> b, this.outDir, this.currentIdx)
-      : _a = a,
-        _b = b;
+  const _$Ready(final List<String> aFiles, this.aDir, final List<String> bFiles,
+      this.bDir, final List<String> outFiles, this.outDir)
+      : _aFiles = aFiles,
+        _bFiles = bFiles,
+        _outFiles = outFiles;
 
-  final List<String> _a;
+  final List<String> _aFiles;
   @override
-  List<String> get a {
+  List<String> get aFiles {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_a);
+    return EqualUnmodifiableListView(_aFiles);
   }
 
-  final List<String> _b;
   @override
-  List<String> get b {
+  final String aDir;
+  final List<String> _bFiles;
+  @override
+  List<String> get bFiles {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_b);
+    return EqualUnmodifiableListView(_bFiles);
+  }
+
+  @override
+  final String bDir;
+  final List<String> _outFiles;
+  @override
+  List<String> get outFiles {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_outFiles);
   }
 
   @override
   final String outDir;
-  @override
-  final int currentIdx;
 
   @override
   String toString() {
-    return 'DirectoryMergerState.ready(a: $a, b: $b, outDir: $outDir, currentIdx: $currentIdx)';
+    return 'DirectoryMergerState.ready(aFiles: $aFiles, aDir: $aDir, bFiles: $bFiles, bDir: $bDir, outFiles: $outFiles, outDir: $outDir)';
   }
 
   @override
@@ -564,20 +610,23 @@ class _$Ready implements Ready {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Ready &&
-            const DeepCollectionEquality().equals(other._a, _a) &&
-            const DeepCollectionEquality().equals(other._b, _b) &&
-            const DeepCollectionEquality().equals(other.outDir, outDir) &&
-            const DeepCollectionEquality()
-                .equals(other.currentIdx, currentIdx));
+            const DeepCollectionEquality().equals(other._aFiles, _aFiles) &&
+            const DeepCollectionEquality().equals(other.aDir, aDir) &&
+            const DeepCollectionEquality().equals(other._bFiles, _bFiles) &&
+            const DeepCollectionEquality().equals(other.bDir, bDir) &&
+            const DeepCollectionEquality().equals(other._outFiles, _outFiles) &&
+            const DeepCollectionEquality().equals(other.outDir, outDir));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(_a),
-      const DeepCollectionEquality().hash(_b),
-      const DeepCollectionEquality().hash(outDir),
-      const DeepCollectionEquality().hash(currentIdx));
+      const DeepCollectionEquality().hash(_aFiles),
+      const DeepCollectionEquality().hash(aDir),
+      const DeepCollectionEquality().hash(_bFiles),
+      const DeepCollectionEquality().hash(bDir),
+      const DeepCollectionEquality().hash(_outFiles),
+      const DeepCollectionEquality().hash(outDir));
 
   @JsonKey(ignore: true)
   @override
@@ -591,10 +640,15 @@ class _$Ready implements Ready {
     required TResult Function() loading,
     required TResult Function(String message) error,
     required TResult Function(
-            List<String> a, List<String> b, String outDir, int currentIdx)
+            List<String> aFiles,
+            String aDir,
+            List<String> bFiles,
+            String bDir,
+            List<String> outFiles,
+            String outDir)
         ready,
   }) {
-    return ready(a, b, outDir, currentIdx);
+    return ready(aFiles, aDir, bFiles, bDir, outFiles, outDir);
   }
 
   @override
@@ -603,11 +657,11 @@ class _$Ready implements Ready {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<String> a, List<String> b, String outDir, int currentIdx)?
+    TResult Function(List<String> aFiles, String aDir, List<String> bFiles,
+            String bDir, List<String> outFiles, String outDir)?
         ready,
   }) {
-    return ready?.call(a, b, outDir, currentIdx);
+    return ready?.call(aFiles, aDir, bFiles, bDir, outFiles, outDir);
   }
 
   @override
@@ -616,13 +670,13 @@ class _$Ready implements Ready {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            List<String> a, List<String> b, String outDir, int currentIdx)?
+    TResult Function(List<String> aFiles, String aDir, List<String> bFiles,
+            String bDir, List<String> outFiles, String outDir)?
         ready,
     required TResult orElse(),
   }) {
     if (ready != null) {
-      return ready(a, b, outDir, currentIdx);
+      return ready(aFiles, aDir, bFiles, bDir, outFiles, outDir);
     }
     return orElse();
   }
@@ -666,13 +720,20 @@ class _$Ready implements Ready {
 }
 
 abstract class Ready implements DirectoryMergerState {
-  const factory Ready(final List<String> a, final List<String> b,
-      final String outDir, final int currentIdx) = _$Ready;
+  const factory Ready(
+      final List<String> aFiles,
+      final String aDir,
+      final List<String> bFiles,
+      final String bDir,
+      final List<String> outFiles,
+      final String outDir) = _$Ready;
 
-  List<String> get a;
-  List<String> get b;
+  List<String> get aFiles;
+  String get aDir;
+  List<String> get bFiles;
+  String get bDir;
+  List<String> get outFiles;
   String get outDir;
-  int get currentIdx;
   @JsonKey(ignore: true)
   _$$ReadyCopyWith<_$Ready> get copyWith => throw _privateConstructorUsedError;
 }
