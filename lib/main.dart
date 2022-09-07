@@ -51,6 +51,7 @@ class MyHomePage extends StatelessWidget {
           error: (s) => Text(s.message),
           loading: (s) => const CircularProgressIndicator(),
           ready: (s) => ImageComparer(
+            key: Key(s.aFiles[s.outFiles.length]),
             imageA: s.aFiles[s.outFiles.length],
             imageB: s.bFiles[s.outFiles.length],
             onSelected: (selected) {
